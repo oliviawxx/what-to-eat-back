@@ -1,0 +1,156 @@
+<view class="page-profile">
+  <view class="header-bg"></view>
+
+  <!-- 未登录：只显示头像占位 + 注册/登录入口 -->
+  <view class="user-card user-card--guest" wx:if="{{ !isLoggedIn }}">
+    <view class="user-card-head" bindtap="onOpenLoginModal">
+      <image class="user-avatar" src="/images/ai/小云吞.png" mode="aspectFill"></image>
+      <view class="user-info">
+        <text class="guest-login-text">注册/登录</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已登录：完整资料卡 -->
+  <view class="user-card" wx:if="{{ isLoggedIn }}">
+    <view class="user-card-head">
+      <image class="user-avatar" src="{{ userInfo.avatarUrl || '/images/avatar/默认头像.png' }}" mode="aspectFill"></image>
+      <view class="user-info">
+        <view class="user-name-row">
+          <text class="user-name">{{ userInfo.nickName }}</text>
+          <text class="icon-edit-entry" bindtap="onOpenEditModal">✎</text>
+        </view>
+        <view class="user-signature" bindtap="onEditSignature">
+          <text>{{ userInfo.signature }}</text>
+          <text class="icon-edit">✎</text>
+        </view>
+      </view>
+    </view>
+    <view class="user-stats">
+      <view class="stat"><text class="stat-num">0</text><text class="stat-label">约饭数</text></view>
+      <view class="stat"><text class="stat-num">0</text><text class="stat-label">收藏数</text></view>
+      <view class="stat"><text class="stat-num">0</text><text class="stat-label">好友数</text></view>
+    </view>
+  </view>
+  <view class="section" wx:if="{{ isLoggedIn }}">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">标签选择</text>
+    </view>
+    <scroll-view class="tags-scroll" scroll-x enhanced show-scrollbar="{{ false }}">
+      <view class="tags tags-inner">
+        <view class="tag" wx:for="{{ tags }}" wx:key="*this">{{ item }}</view>
+        <view class="tag tag-add" bindtap="onAddTag">+</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 添加标签弹层 -->
+  <view class="add-tag-mask" wx:if="{{ showAddTagModal }}" catchtap="onCloseAddTagModal"></view>
+  <view class="add-tag-modal" wx:if="{{ showAddTagModal }}">
+    <view class="add-tag-modal-inner" catchtap="">
+      <text class="add-tag-title">添加标签</text>
+      <input class="add-tag-input" placeholder="请输入标签名" value="{{ newTagName }}" focus="{{ showAddTagModal }}" bindinput="onNewTagInput" />
+      <view class="add-tag-actions">
+        <view class="add-tag-btn add-tag-btn--cancel" bindtap="onCloseAddTagModal">取消</view>
+        <view class="add-tag-btn add-tag-btn--ok" bindtap="onConfirmAddTag">确定</view>
+      </view>
+    </view>
+  </view>
+  <view class="section" wx:if="{{ isLoggedIn }}">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">约饭模板</text>
+      <image class="section-head-icon" src="/images/buttons/添加模板.png" mode="aspectFit" bindtap="onGoToTemplateEdit" />
+    </view>
+    <view class="templates">
+      <view class="template-item" wx:for="{{ templates }}" wx:key="id">
+        <text class="tpl-desc">人数: {{ item.people }}</text>
+        <text class="tpl-desc">性别: {{ item.gender }}</text>
+        <text class="tpl-arrow">›</text>
+      </view>
+    </view>
+  </view>
+  <view class="section" wx:if="{{ isLoggedIn }}">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">待办消息</text>
+    </view>
+    <view class="todo-entry" bindtap="onGoToTodo">
+      <image class="todo-entry-img" src="/images/buttons/代办消息.png" mode="widthFix" />
+    </view>
+  </view>
+
+  <!-- 登录/注册模态框：贴图背景 + 仅非按钮中文需实现 -->
+  <view class="login-modal-mask" wx:if="{{ loginModalShow }}" catchtap="onLoginModalMaskTap"></view>
+  <view class="login-modal {{ loginModalShow ? 'login-modal--show' : '' }}" catchtap="onLoginModalContentTap">
+    <image class="login-modal-bg" src="/images/buttons/登陆注册模态框.png" mode="widthFix" />
+    <view class="login-modal-content">
+      <view class="login-field-row">
+        <text class="login-label">邮箱</text>
+        <view class="login-input-wrap">
+          <image class="login-input-bg" src="/images/buttons/邮箱输入框.png" mode="widthFix" />
+          <input class="login-input" type="text" placeholder="" placeholder-class="login-input-placeholder" value="{{ loginEmail }}" bindinput="onLoginEmailInput" />
+        </view>
+      </view>
+      <view class="login-field-row">
+        <text class="login-label">验证码</text>
+        <view class="login-code-row">
+          <view class="login-input-wrap login-input-wrap--short">
+            <image class="login-input-bg" src="/images/buttons/验证码输入框.png" mode="widthFix" />
+            <input class="login-input" type="number" placeholder="" placeholder-class="login-input-placeholder" value="{{ loginVerifyCode }}" bindinput="onLoginCodeInput" />
+          </view>
+          <view class="login-btn-getcode" bindtap="onGetVerifyCode">
+            <image class="login-btn-bg" src="/images/buttons/获取验证码.png" mode="aspectFit" />
+            <text class="login-btn-text"></text>
+          </view>
+        </view>
+      </view>
+      <view class="login-btn-submit-wrap" bindtap="onLoginSubmit">
+        <image class="login-btn-bg" src="/images/buttons/登录.png" mode="aspectFit" />
+        <text class="login-btn-text"></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 编辑资料弹窗：从底部滑出 -->
+  <view class="edit-modal-mask" wx:if="{{ editModalShow }}" catchtap="onCloseEditModal"></view>
+  <view class="edit-modal {{ editModalShow ? 'edit-modal--show' : '' }}">
+    <view class="edit-modal-inner">
+      <view class="edit-avatar-wrap" bindtap="onUploadAvatar">
+        <image class="edit-avatar" src="{{ userInfo.avatarUrl || '/images/avatar/默认头像.png' }}" mode="aspectFill"></image>
+        <view class="edit-avatar-camera">📷</view>
+      </view>
+      <view class="edit-rows">
+        <view class="edit-row" bindtap="onEditNickname">
+          <text class="edit-label">昵称</text>
+          <text class="edit-value">{{ userInfo.nickName }}</text>
+          <text class="edit-arrow">›</text>
+        </view>
+        <view class="edit-row" bindtap="onEditEmail">
+          <text class="edit-label">邮箱</text>
+          <text class="edit-value">{{ userInfo.email }}</text>
+          <text class="edit-arrow">›</text>
+        </view>
+        <view class="edit-row" bindtap="onEditIntro">
+          <text class="edit-label">个人简介</text>
+          <text class="edit-value">{{ userInfo.intro }}</text>
+          <text class="edit-arrow">›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 编辑单项弹层：昵称/邮箱/简介/签名 -->
+  <view class="add-tag-mask" wx:if="{{ showEditField }}" catchtap="onCloseEditFieldModal"></view>
+  <view class="add-tag-modal" wx:if="{{ showEditField }}">
+    <view class="add-tag-modal-inner" catchtap="">
+      <text class="add-tag-title">编辑{{ editFieldLabel }}</text>
+      <input class="add-tag-input" placeholder="请输入{{ editFieldLabel }}" value="{{ editFieldValue }}" focus="{{ showEditField }}" bindinput="onEditFieldInput" />
+      <view class="add-tag-actions">
+        <view class="add-tag-btn add-tag-btn--cancel" bindtap="onCloseEditFieldModal">取消</view>
+        <view class="add-tag-btn add-tag-btn--ok" bindtap="onConfirmEditField">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

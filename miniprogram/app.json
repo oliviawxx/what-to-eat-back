@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/map-rank/map-rank",
+    "pages/publish/publish",
+    "pages/chat/chat",
+    "pages/profile/profile",
+    "pages/ai-chat/ai-chat",
+    "pages/template-edit/template-edit",
+    "pages/chat-detail/chat-detail",
+    "pages/todo-list/todo-list"
+  ],
+  "entryPagePath": "pages/index/index",
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "今天吃什么",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#fffef5",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#8B4513",
+    "backgroundColor": "#fff",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "", "iconPath": "images/tabbar/tab1.png", "selectedIconPath": "images/tabbar/tab1-active.png" },
+      { "pagePath": "pages/map-rank/map-rank", "text": "", "iconPath": "images/tabbar/tab2.png", "selectedIconPath": "images/tabbar/tab2-active.png" },
+      { "pagePath": "pages/publish/publish", "text": "", "iconPath": "images/tabbar/tab3.png", "selectedIconPath": "images/tabbar/tab3-active.png" },
+      { "pagePath": "pages/chat/chat", "text": "", "iconPath": "images/tabbar/tab4.png", "selectedIconPath": "images/tabbar/tab4-active.png" },
+      { "pagePath": "pages/profile/profile", "text": "", "iconPath": "images/tabbar/tab5.png", "selectedIconPath": "images/tabbar/tab5-active.png" }
+    ]
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "connectSocket": 60000,
+    "uploadFile": 60000,
+    "downloadFile": 60000
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "用于地图展示与约饭、榜单位置"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "usingComponents": {
+    "custom-tab-bar": "custom-tab-bar/index"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

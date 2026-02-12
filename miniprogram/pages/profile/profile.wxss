@@ -1,0 +1,547 @@
+.page-profile {
+  min-height: 100vh;
+  padding-bottom: 200rpx;
+  background: #fffef5;
+  box-sizing: border-box;
+}
+
+.header-bg {
+  height: 240rpx;
+  background: linear-gradient(180deg, rgba(255,248,220,0.9) 0%, transparent 100%);
+}
+
+.user-card {
+  margin: -80rpx 32rpx 32rpx;
+  padding: 32rpx;
+  background: #fdf8f0;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06);
+}
+
+.user-card--guest .user-card-head {
+  margin-bottom: 0;
+}
+
+.guest-login-text {
+  font-size: 32rpx;
+  color: #333;
+  line-height: 120rpx;
+}
+
+.user-card-head {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 24rpx;
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: #e0e0e0;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.icon-edit-entry {
+  margin-left: 12rpx;
+  font-size: 32rpx;
+  color: #8B4513;
+  padding: 8rpx;
+}
+
+.user-signature {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.icon-edit {
+  margin-left: 8rpx;
+  color: #999;
+}
+
+.user-stats {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 24rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-num {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.section {
+  margin: 0 32rpx 32rpx;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-head-icon {
+  margin-left: auto;
+  width: 56rpx;
+  height: 56rpx;
+  padding: 8rpx 0;
+}
+
+.title-bar {
+  width: 8rpx;
+  height: 28rpx;
+  background: #8B4513;
+  margin-right: 12rpx;
+  border-radius: 4rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.tags-scroll {
+  width: 100%;
+  margin: 0 -24rpx;
+  padding: 0 24rpx;
+  height: 80rpx;
+  white-space: nowrap;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.tags-inner {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: 16rpx;
+  padding: 4rpx 0;
+}
+
+.tags-inner .tag {
+  flex-shrink: 0;
+}
+
+.tag {
+  padding: 12rpx 24rpx;
+  background: #f5f5f5;
+  border-radius: 32rpx;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.tag-add {
+  background: #eee;
+  color: #999;
+}
+
+/* 添加标签弹层 */
+.add-tag-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 150;
+}
+
+.add-tag-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 151;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24rpx;
+}
+
+.add-tag-modal-inner {
+  width: 100%;
+  max-width: 600rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx;
+  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.1);
+}
+
+.add-tag-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24rpx;
+}
+
+.add-tag-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+  box-sizing: border-box;
+  margin-bottom: 32rpx;
+}
+
+.add-tag-actions {
+  display: flex;
+  gap: 24rpx;
+  justify-content: flex-end;
+}
+
+.add-tag-btn {
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  border-radius: 12rpx;
+}
+
+.add-tag-btn--cancel {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.add-tag-btn--ok {
+  background: #8B4513;
+  color: #fff;
+}
+
+.templates {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.template-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.template-item:last-child {
+  border-bottom: none;
+}
+
+.tpl-desc {
+  font-size: 26rpx;
+  color: #666;
+  margin-right: 24rpx;
+}
+
+.tpl-arrow {
+  margin-left: auto;
+  font-size: 36rpx;
+  color: #999;
+}
+
+.todo-entry {
+  width: 100%;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.todo-entry-img {
+  width: 100%;
+  display: block;
+}
+
+/* 编辑资料弹窗 */
+.edit-modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+}
+
+.edit-modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 80rpx;
+  max-height: 75vh;
+  background: #fffef8;
+  border-radius: 32rpx 32rpx 0 0;
+  box-shadow: 0 -8rpx 32rpx rgba(0,0,0,0.12);
+  z-index: 101;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.edit-modal--show {
+  transform: translateY(0);
+}
+
+.edit-modal-inner {
+  padding: 48rpx 32rpx 80rpx;
+  padding-bottom: calc(80rpx + env(safe-area-inset-bottom));
+}
+
+.edit-avatar-wrap {
+  position: relative;
+  width: 160rpx;
+  height: 160rpx;
+  margin: 0 auto 40rpx;
+}
+
+.edit-avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: block;
+}
+
+.edit-avatar-camera {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: #87CEEB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+.edit-rows {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.edit-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 24rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.edit-row:last-child {
+  border-bottom: none;
+}
+
+.edit-label {
+  width: 140rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.edit-value {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  text-align: right;
+  margin-right: 16rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.edit-arrow {
+  font-size: 32rpx;
+  color: #999;
+}
+
+/* 登录/注册模态框：贴图背景 + 按钮中文 */
+.login-modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+}
+
+.login-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 660rpx;
+  z-index: 201;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.login-modal--show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.login-modal-bg {
+  width: 100%;
+  display: block;
+  border-radius: 24rpx;
+}
+
+.login-modal-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 390rpx 40rpx 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 24rpx;
+  box-sizing: border-box;
+}
+
+.login-field-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.login-label {
+  width: 100rpx;
+  font-size: 28rpx;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.login-input-wrap {
+  flex: 1;
+  position: relative;
+  min-height: 72rpx;
+}
+
+.login-input-wrap--short {
+  flex: 1;
+  min-width: 0;
+  margin-right: 16rpx;
+}
+
+.login-input-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 72rpx;
+  z-index: 0;
+}
+
+.login-input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 72rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #000;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.login-input-placeholder {
+  color: #999;
+}
+
+.login-code-row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.login-btn-getcode {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 260rpx;
+  min-height: 80rpx;
+}
+
+.login-btn-getcode .login-btn-bg {
+  min-height: 80rpx;
+  object-fit: contain;
+  object-position: center;
+}
+
+.login-btn-submit-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20rpx;
+  height: 88rpx;
+  max-height: 88rpx;
+}
+
+.login-btn-submit-wrap .login-btn-bg {
+  min-height: 88rpx;
+  max-height: 88rpx;
+  object-fit: contain;
+  object-position: center;
+}
+
+.login-btn-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 72rpx;
+  z-index: 0;
+}
+
+.login-btn-text {
+  position: relative;
+  z-index: 1;
+  font-size: 30rpx;
+  color: #000;
+  font-weight: 500;
+}

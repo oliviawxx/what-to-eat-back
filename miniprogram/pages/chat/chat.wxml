@@ -1,0 +1,38 @@
+<view class="page-chat">
+  <view class="search-bar">
+    <text class="search-icon">🔍</text>
+    <input class="search-input" placeholder="你想搜索什么" placeholder-class="search-placeholder" />
+  </view>
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar red"></view>
+      <text class="section-title">临时会话</text>
+    </view>
+    <view class="chat-list">
+      <view class="chat-item" wx:for="{{ tempList }}" wx:key="id" bindtap="onChatItem" data-id="{{ item.id }}" data-name="{{ item.name }}" data-temp="1">
+        <image class="chat-avatar" src="/images/avatar/默认头像.png" mode="aspectFill"></image>
+        <view class="chat-body">
+          <text class="chat-name">{{ item.name }}</text>
+          <text class="chat-preview">{{ item.preview }}</text>
+        </view>
+        <text class="chat-time">{{ item.time }}</text>
+      </view>
+    </view>
+  </view>
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar red"></view>
+      <text class="section-title">好友聊天</text>
+    </view>
+    <view class="chat-list">
+      <view class="chat-item" wx:for="{{ friendList }}" wx:key="id" bindtap="onChatItem" data-id="{{ item.id }}" data-name="{{ item.name }}" data-temp="0">
+        <image class="chat-avatar" src="/images/avatar/默认头像.png" mode="aspectFill"></image>
+        <view class="chat-body">
+          <text class="chat-name">{{ item.name }}</text>
+          <text class="chat-preview">{{ item.preview }}</text>
+        </view>
+        <text class="chat-time">{{ item.time }}</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,377 @@
+/* 基础页面容器 */
+.page-spin {
+  min-height: 100vh;
+  padding-bottom: 200rpx;
+  box-sizing: border-box;
+  background-color: #fffef5;
+}
+
+/* 顶部筛选区 */
+.header {
+  position: relative;
+  min-height: 200rpx;
+  overflow: visible;
+}
+
+.header-bg {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(255,248,220,0.9) 0%, rgba(255,248,220,0.3) 100%);
+  z-index: 0;
+}
+
+.filters {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  padding: 32rpx 32rpx 0;
+  z-index: 1;
+}
+
+.filter-block {
+  position: relative;
+  flex: 1;
+  max-width: 280rpx;
+  margin: 0 16rpx;
+}
+
+.filter-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.filter-title-bar {
+  width: 6rpx; height: 28rpx;
+  background: #c0392b;
+  border-radius: 4rpx;
+  margin-right: 12rpx;
+}
+
+.filter-label {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.filter-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 24rpx;
+  background: #fffef8;
+  border: 2rpx solid #ddd;
+  border-radius: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.filter-trigger--dark {
+  background: #5d4037;
+  border-color: #5d4037;
+}
+
+.filter-trigger--dark .filter-value {
+  color: #fff;
+}
+
+.filter-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.filter-chevron {
+  width: 0; height: 0;
+  border-left: 10rpx solid transparent;
+  border-right: 10rpx solid transparent;
+  border-top: 14rpx solid #666;
+  margin-left: 12rpx;
+}
+
+.filter-chevron--white {
+  border-top-color: #fff;
+}
+
+.filter-dropdown {
+  position: absolute;
+  left: 0; right: 0; top: 100%;
+  margin-top: 12rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.filter-option {
+  padding: 24rpx 24rpx;
+  font-size: 28rpx;
+  color: #333;
+  background: #fffef8;
+  border-bottom: 1rpx solid #eee;
+  text-align: center;
+}
+
+/* 转盘区 */
+.wheel-pointer {
+  position: absolute;
+  left: 50%;
+  top: 160rpx;
+  width: 0; height: 0;
+  margin-left: -16rpx;
+  border-left: 16rpx solid transparent;
+  border-right: 16rpx solid transparent;
+  border-top: 20rpx solid #5d4037;
+}
+
+.wheel-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 0;
+}
+
+.wheel-placeholder {
+  width: 520rpx;
+  height: 520rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffd89b 0%, #ffb347 50%, #87CEEB 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+  color: #666;
+  border: 8rpx dashed #daa520;
+}
+
+/* AI悬浮 */
+.ai-float {
+  position: fixed;
+  right: 24rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+.ai-group {
+  position: relative;
+  width: 140rpx;
+  height: 140rpx;
+}
+
+.ai-bubble {
+  position: absolute;
+  right: 0; bottom: 100%;
+  width: 280rpx;
+  margin-bottom: 12rpx;
+  margin-right: -40rpx;
+}
+
+.ai-avatar {
+  width: 140rpx; height: 140rpx;
+  border-radius: 50%;
+}
+
+/* 底部主按钮：紧贴转盘下方，避免与 Tab 之间空隙过大 */
+.btn-bottom {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 420rpx;
+  width: 400rpx;
+  z-index: 99;
+}
+
+.btn-pick-img {
+  width: 100%;
+}
+
+/* 推荐结果弹窗优化 */
+.result-modal-mask {
+  position: fixed;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+}
+
+.result-modal {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  background: #fffef5;
+  border-radius: 40rpx 40rpx 0 0;
+  z-index: 201;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  max-height: 85vh;
+}
+
+.result-modal--show {
+  transform: translateY(0);
+}
+
+.result-modal-content {
+  /* 关键：增加底部内边距，避让底部Tab栏（约100rpx）和系统安全区 */
+  padding: 40rpx 40rpx calc(180rpx + env(safe-area-inset-bottom)) 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+/* 餐厅卡片 */
+.restaurant-card {
+  background: #fff;
+  border: 2rpx solid #e8e8e8;
+  border-radius: 32rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.card-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-tags {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.tag {
+  padding: 6rpx 16rpx;
+  background: #fff9f0;
+  border: 1rpx solid #daa520;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+  color: #8B4513;
+}
+
+.card-price {
+  margin-left: auto;
+  font-size: 26rpx;
+  color: #c0392b;
+}
+
+.card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 0;
+  border-top: 1rpx solid #f5f5f5;
+  font-size: 26rpx;
+}
+
+.card-label { color: #888; width: 140rpx; }
+.card-value { color: #333; flex: 1; text-align: right; }
+
+/* 2x2 按钮组优化 */
+.result-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24rpx;
+  margin-top: 10rpx;
+}
+
+.result-action-btn {
+  /* 核心修复：强制重置按钮默认宽高 */
+  width: 280rpx !important; 
+  height: 90rpx !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  background: transparent !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.result-action-btn::after {
+  border: none;
+}
+
+.result-action-btn-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 操作模态：同加号模态框，仅遮罩 + 三张图片贴图三角排布 */
+.action-modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 300;
+}
+
+.action-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: transparent;
+  z-index: 301;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.action-modal--show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.action-modal-content {
+  position: relative;
+  width: 660rpx;
+  height: 580rpx;
+}
+
+.action-img {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320rpx;
+  height: 268rpx;
+}
+
+.action-img::after {
+  border: none;
+}
+
+.action-img-src {
+  width: 100%;
+  height: 100%;
+}
+
+.action-img--top {
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.action-img--left {
+  left: 0;
+  bottom: 0;
+}
+
+.action-img--right {
+  right: 0;
+  bottom: 0;
+  left: auto;
+}

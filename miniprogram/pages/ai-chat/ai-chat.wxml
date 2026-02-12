@@ -1,0 +1,41 @@
+<view class="page-ai-chat">
+  <view class="chat-header">
+    <text class="ai-name">小云吞</text>
+    <text class="ai-desc">AI 助手</text>
+  </view>
+
+  <scroll-view class="message-list" scroll-y scroll-into-view="{{ scrollToId }}">
+    <view class="msg msg-ai" id="msg0">
+      <image class="msg-avatar" src="/images/ai/小云吞.png" mode="aspectFill"></image>
+      <view class="msg-bubble">hi! 我是小云吞，快来问问我吃什么吧～</view>
+    </view>
+
+    <block wx:for="{{ messages }}" wx:key="id">
+      <view wx:if="{{ item.role === 'user' }}" class="msg msg-user" id="msg{{ item.id }}">
+        <view class="msg-bubble">{{ item.text }}</view>
+        <image class="msg-avatar" src="{{ currentUserAvatar }}" mode="aspectFill"></image>
+      </view>
+
+      <view wx:else class="msg msg-ai" id="msg{{ item.id }}">
+        <image class="msg-avatar" src="/images/ai/小云吞.png" mode="aspectFill"></image>
+        <view class="msg-bubble">{{ item.text }}</view>
+      </view>
+    </block>
+    
+    <view id="bottom-anchor" style="height: 20rpx;"></view>
+  </scroll-view>
+
+  <view class="input-bar">
+    <input
+      class="input"
+      placeholder="输入消息..."
+      value="{{ inputText }}"
+      bindinput="onInput"
+      confirm-type="send"
+      bindconfirm="onSend"
+    />
+    <view class="btn-send" bindtap="onSend">
+      <image class="btn-send-img" src="/images/buttons/发送.png" mode="aspectFit" />
+    </view>
+  </view>
+</view>

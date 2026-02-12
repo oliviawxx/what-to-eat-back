@@ -1,0 +1,113 @@
+.page-chat {
+  min-height: 100vh;
+  padding: 24rpx 32rpx 200rpx;
+  background: #fffef5;
+  box-sizing: border-box;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  height: 72rpx;
+  padding: 0 24rpx;
+  background: #fff;
+  border-radius: 36rpx;
+  margin-bottom: 32rpx;
+}
+
+.search-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.search-placeholder {
+  color: #999;
+}
+
+.section {
+  margin-bottom: 40rpx;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.title-bar {
+  width: 8rpx;
+  height: 28rpx;
+  background: #ff8c00;
+  margin-right: 12rpx;
+  border-radius: 4rpx;
+}
+
+.title-bar.red {
+  background: #c0392b;
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.chat-list {
+  background: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.chat-item:last-child {
+  border-bottom: none;
+}
+
+.chat-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: #d2a679;
+  margin-right: 24rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.chat-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chat-name {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.chat-preview {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.chat-time {
+  font-size: 22rpx;
+  color: #999;
+  margin-left: 16rpx;
+}

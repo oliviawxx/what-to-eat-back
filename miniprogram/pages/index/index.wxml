@@ -1,0 +1,122 @@
+<view class="page-spin">
+  <view class="header">
+    <view class="header-bg"></view>
+    <view class="filters">
+      <view class="filter-block">
+        <view class="filter-title">
+          <view class="filter-title-bar"></view>
+          <text class="filter-label">地址筛选</text>
+        </view>
+        <view class="filter-trigger" bindtap="onToggleAddress">
+          <text class="filter-value">{{ addressText }}</text>
+          <view class="filter-chevron"></view>
+        </view>
+        <view class="filter-dropdown" wx:if="{{ addressOpen }}">
+          <view class="filter-option" wx:for="{{ addressOptions }}" wx:key="*this" data-value="{{ item }}" bindtap="onSelectAddress">{{ item }}</view>
+        </view>
+      </view>
+
+      <view class="filter-block">
+        <view class="filter-title">
+          <view class="filter-title-bar"></view>
+          <text class="filter-label">人数筛选</text>
+        </view>
+        <view class="filter-trigger filter-trigger--dark" bindtap="onTogglePeople">
+          <text class="filter-value">{{ peopleText }}</text>
+          <view class="filter-chevron filter-chevron--white"></view>
+        </view>
+        <view class="filter-dropdown" wx:if="{{ peopleOpen }}">
+          <view class="filter-option" wx:for="{{ peopleOptions }}" wx:key="*this" data-value="{{ item }}" bindtap="onSelectPeople">{{ item }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="wheel-pointer"></view>
+  </view>
+
+  <view class="wheel-area">
+    <view class="wheel-placeholder">转盘区域</view>
+  </view>
+
+  <view class="ai-float" bindtap="onOpenAIChat">
+    <view class="ai-group">
+      <image class="ai-bubble" src="/images/ai/bubble.png" mode="widthFix" wx:if="{{ showBubble }}" />
+      <image class="ai-avatar" src="/images/ai/小云吞.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="btn-bottom" bindtap="onPick">
+    <image class="btn-pick-img" src="/images/buttons/今天吃什么.png" mode="widthFix" />
+  </view>
+
+  <view class="result-modal-mask" wx:if="{{ resultModalOpen }}" bindtap="onCloseResultModal"></view>
+  <view class="result-modal {{ resultModalOpen ? 'result-modal--show' : '' }}">
+    <view class="result-modal-content">
+      <view class="restaurant-card" wx:if="{{ recommendData }}">
+        <view class="card-header">
+          <text class="card-title">{{ recommendData.name }}</text>
+          <text class="card-edit">✏️</text>
+        </view>
+
+        <view class="card-tags">
+          <view class="tag">{{ recommendData.tag1 }}</view>
+          <view class="tag">{{ recommendData.tag2 }}</view>
+          <text class="card-price">{{ recommendData.price }}</text>
+        </view>
+
+        <view class="card-item">
+          <text class="card-label">营业时间</text>
+          <text class="card-value">{{ recommendData.hours }}</text>
+        </view>
+
+        <view class="card-item">
+          <text class="card-label">地址</text>
+          <view class="card-value-row">
+            <text class="card-value">{{ recommendData.location }}</text>
+            <text class="location-icon">📍</text>
+          </view>
+        </view>
+
+        <view class="card-item">
+          <text class="card-label">推荐菜</text>
+          <text class="card-value">{{ recommendData.dishes }}</text>
+        </view>
+
+        <view class="card-item" style="border-bottom: none;">
+          <text class="card-label">评价</text>
+          <text class="card-chevron">›</text>
+        </view>
+      </view>
+
+      <view class="result-actions">
+        <button class="result-action-btn" bindtap="onConfirmSelect">
+          <image class="result-action-btn-img" src="/images/buttons/确认选择.png" mode="aspectFit"></image>
+        </button>
+        <button class="result-action-btn" bindtap="onReselect">
+          <image class="result-action-btn-img" src="/images/buttons/重新选择.png" mode="aspectFit"></image>
+        </button>
+        <button class="result-action-btn" bindtap="onBlacklistDish">
+          <image class="result-action-btn-img" src="/images/buttons/拉黑菜品.png" mode="aspectFit"></image>
+        </button>
+        <button class="result-action-btn" bindtap="onCloseResultModal">
+          <image class="result-action-btn-img" src="/images/buttons/退出选择.png" mode="aspectFit"></image>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作模态：三个图片贴图三角排布，同加号模态框风格 -->
+  <view class="action-modal-mask" wx:if="{{ actionModalOpen }}" bindtap="onCloseActionModal"></view>
+  <view class="action-modal {{ actionModalOpen ? 'action-modal--show' : '' }}">
+    <view class="action-modal-content">
+      <button class="action-img action-img--top" bindtap="onStartDine">
+        <image class="action-img-src" src="/images/buttons/开始约饭.png" mode="aspectFit" />
+      </button>
+      <button class="action-img action-img--left" bindtap="onAlreadyEaten">
+        <image class="action-img-src" src="/images/buttons/自己去吃.png" mode="aspectFit" />
+      </button>
+      <button class="action-img action-img--right" bindtap="onNavigate">
+        <image class="action-img-src" src="/images/buttons/导航前往.png" mode="aspectFit" />
+      </button>
+    </view>
+  </view>
+</view>

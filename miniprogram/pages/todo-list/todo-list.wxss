@@ -1,0 +1,156 @@
+.page-todo-list {
+  min-height: 100vh;
+  background: #fffef5;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-bar {
+  background: #fdf8f0;
+  flex-shrink: 0;
+}
+
+.nav-content {
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+  position: relative;
+}
+
+.nav-back {
+  width: 80rpx;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nav-back-arrow {
+  font-size: 48rpx;
+  color: #333;
+  font-weight: 300;
+}
+
+.nav-title {
+  position: absolute;
+  left: 80rpx;
+  right: 80rpx;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.nav-right {
+  min-width: 80rpx;
+}
+
+.todo-body {
+  height: calc(100vh - 88rpx - env(safe-area-inset-top));
+  padding: 24rpx 24rpx 120rpx;
+  box-sizing: border-box;
+}
+
+.block {
+  margin-bottom: 40rpx;
+}
+
+.block-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.block-head-bar {
+  width: 8rpx;
+  height: 28rpx;
+  background: #c0392b;
+  border-radius: 4rpx;
+  margin-right: 12rpx;
+}
+
+.block-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.todo-card {
+  position: relative;
+  padding: 28rpx 24rpx;
+  margin-bottom: 20rpx;
+  background: #fffef8;
+  border-radius: 20rpx;
+  border: 2rpx solid #eee;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.todo-card:last-child {
+  margin-bottom: 0;
+}
+
+/* 进度条 + 约饭进度点 */
+.progress-wrap {
+  position: relative;
+  flex: 1;
+  height: 32rpx;
+  margin-right: 24rpx;
+}
+
+.progress-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 16rpx;
+  background: #eee;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #5d4037;
+  border-radius: 8rpx;
+  transition: width 0.2s;
+}
+
+.progress-dot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56rpx;
+  height: 56rpx;
+  z-index: 2;
+}
+
+.todo-card-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-right: 12rpx;
+}
+
+.todo-card-arrow {
+  font-size: 36rpx;
+  color: #999;
+}
+
+.todo-card--row .todo-card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.todo-card-line {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.todo-card-line--sub {
+  color: #666;
+  font-size: 24rpx;
+}

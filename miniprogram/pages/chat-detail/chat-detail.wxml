@@ -1,0 +1,69 @@
+<view class="page-chat-detail">
+  <!-- 自定义顶栏：返回、对方名称、加好友(临时会话时显示) -->
+  <view class="nav-bar" style="padding-top: {{ statusBarHeight }}px;">
+    <view class="nav-content">
+      <view class="nav-back" bindtap="onBack">
+        <text class="nav-back-arrow">‹</text>
+      </view>
+      <text class="nav-title">{{ partnerName }}</text>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <!-- 聊天内容区：模糊背景 + 消息列表 -->
+  <view class="chat-content">
+    <view class="chat-bg"></view>
+    <scroll-view class="msg-list" scroll-y scroll-into-view="{{ scrollToId }}" enhanced show-scrollbar="{{ false }}">
+      <block wx:for="{{ messages }}" wx:key="id">
+        <view wx:if="{{ item.type === 'date' }}" class="msg-date">{{ item.text }}</view>
+        <view wx:elif="{{ item.from === 'other' }}" class="msg-row msg-row--other" id="msg-{{ item.id }}">
+          <image class="msg-avatar" src="/images/avatar/默认头像.png" mode="aspectFill"></image>
+          <view class="msg-body">
+            <view wx:if="{{ item.msgType === 'image' }}" class="bubble bubble--other bubble--img">
+              <image class="bubble-img" wx:if="{{ item.imageUrl }}" src="{{ item.imageUrl }}" mode="widthFix" />
+              <text class="bubble-text">{{ item.text }}</text>
+              <text class="msg-time">{{ item.time }}</text>
+            </view>
+            <view wx:else class="bubble bubble--other">
+              <text class="bubble-text">{{ item.text }}</text>
+              <text class="msg-time">{{ item.time }}</text>
+            </view>
+          </view>
+        </view>
+        <view wx:else class="msg-row msg-row--me" id="msg-{{ item.id }}">
+          <view class="msg-body">
+            <view wx:if="{{ item.msgType === 'voice' }}" class="bubble bubble--me bubble--voice">
+              <text class="voice-icon">▶</text>
+              <text class="voice-duration">{{ item.duration }}</text>
+              <text class="msg-time">{{ item.time }}{{ item.read ? ' • Read' : '' }}</text>
+            </view>
+            <view wx:else class="bubble bubble--me">
+              <text class="bubble-label" wx:if="{{ item.label }}">{{ item.label }}</text>
+              <text class="bubble-text">{{ item.text }}</text>
+              <text class="msg-time">{{ item.time }}{{ item.read ? ' • Read' : '' }}</text>
+            </view>
+          </view>
+          <image class="msg-avatar msg-avatar--me" src="{{ currentUserAvatar || '/images/avatar/默认头像.png' }}" mode="aspectFill"></image>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <!-- 底部输入栏 -->
+  <view class="input-bar">
+    <view class="input-attach" bindtap="onAttach">
+      <text class="icon-attach">+</text>
+    </view>
+    <input class="input-field" placeholder="输入消息" value="{{ inputText }}" bindinput="onInput" focus="{{ inputFocus }}" />
+    <!-- 临时会话：发送键左侧显示添加好友（人形+加号 icon，可替换为 /images/icon-add-friend.png） -->
+    <view class="btn-add-friend" wx:if="{{ isTemp }}" bindtap="onAddFriend">
+      <view class="icon-add-friend-symbol">
+        <text class="icon-person">👤</text>
+        <text class="icon-plus">+</text>
+      </view>
+    </view>
+    <view class="btn-send" bindtap="onSend">
+      <image class="btn-send-img" src="/images/buttons/发送.png" mode="aspectFit" />
+    </view>
+  </view>
+</view>

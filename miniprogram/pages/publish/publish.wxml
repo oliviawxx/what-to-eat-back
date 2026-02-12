@@ -1,0 +1,151 @@
+<view class="page-publish">
+  <!-- 自定义顶栏：返回箭头 + 居中标题 + 右上编辑 -->
+  <view class="nav-bar" style="padding-top: {{ statusBarHeight }}px;">
+    <view class="nav-content">
+      <view class="nav-back" bindtap="onBack">
+        <text class="nav-back-arrow">‹</text>
+      </view>
+      <text class="nav-title">{{ navTitle }}</text>
+      <view class="nav-right" bindtap="onNavRightTap">
+        <image class="nav-right-icon"  mode="aspectFit" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 约饭编辑：商家信息 + 信息补充 + 筛选 + 确认发布 -->
+  <view class="dine-container" wx:if="{{ pageType === 'dine' }}">
+    <view class="dine-card">
+      <view class="section-title">商家信息</view>
+      <view class="merchant-card">
+        <view class="merchant-name-row">
+          <text class="merchant-name">{{ dineMerchant.name }}</text>
+          <view class="merchant-edit" bindtap="onEditMerchant">
+            <image class="merchant-edit-icon" src="/images/buttons/编辑.png" mode="aspectFit" />
+          </view>
+        </view>
+        <view class="merchant-tags">
+          <text class="merchant-tag">约成{{ dineMerchant.dineCount || 0 }}次</text>
+          <text class="merchant-tag">{{ dineMerchant.reviewCount || 0 }}条评价</text>
+        </view>
+        <view class="merchant-row">
+          <text class="merchant-label">人均</text>
+          <text class="merchant-price">{{ dineMerchant.price || '40¥/人' }}</text>
+        </view>
+        <view class="merchant-row">
+          <text class="merchant-label">营业时间</text>
+          <text class="merchant-value">{{ dineMerchant.hours || '11:00 - 14:00 17:00 - 20:00' }}</text>
+        </view>
+        <view class="merchant-row">
+          <text class="merchant-label">地址</text>
+          <view class="merchant-addr-row">
+            <text class="merchant-value">{{ dineMerchant.address || '武昌区八一路483号武汉大学工学部内' }}</text>
+            <text class="merchant-nav" bindtap="onMerchantNav">导航</text>
+          </view>
+        </view>
+        <view class="merchant-row">
+          <text class="merchant-label">推荐菜</text>
+          <text class="merchant-value">{{ dineMerchant.dishes || '干煸藕丝 重庆辣子鸡 糍粑鱼' }}</text>
+        </view>
+        <view class="merchant-row merchant-row--link" bindtap="onMerchantReviews">
+          <text class="merchant-label">评价</text>
+          <text class="merchant-arrow">›</text>
+        </view>
+      </view>
+
+      <view class="section-title">信息补充</view>
+      <view class="form-row">
+        <text class="form-label">约饭日期</text>
+        <input class="form-input" placeholder="请输入约饭日期" value="{{ dineForm.date }}" bindinput="onDineDateInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">约饭时间</text>
+        <input class="form-input" placeholder="请输入约饭时间" value="{{ dineForm.time }}" bindinput="onDineTimeInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">见面地点</text>
+        <input class="form-input" placeholder="请输入见面地点" value="{{ dineForm.place }}" bindinput="onDinePlaceInput" />
+      </view>
+
+      <view class="section-title">其他声明</view>
+      <textarea class="form-textarea-dine" placeholder="请输入忌口及其他要求声明......" value="{{ dineForm.remark }}" bindinput="onDineRemarkInput" />
+
+      <view class="section-title">性别筛选</view>
+      <picker mode="selector" range="{{ genderOptions }}" range-key="label" value="{{ dineForm.genderIndex }}" bindchange="onDineGenderChange">
+        <view class="form-picker">{{ genderOptions[dineForm.genderIndex].label }}</view>
+      </picker>
+      <view class="section-title">人数筛选</view>
+      <picker mode="selector" range="{{ peopleOptions }}" range-key="label" value="{{ dineForm.peopleIndex }}" bindchange="onDinePeopleChange">
+        <view class="form-picker">{{ peopleOptions[dineForm.peopleIndex].label }}</view>
+      </picker>
+
+      <view class="section-title">标签选择</view>
+      <scroll-view class="dine-tags-scroll" scroll-x enhanced show-scrollbar="{{ false }}">
+        <view class="tag-row tag-row-inner">
+          <view class="tag-item" wx:for="{{ dineForm.tags }}" wx:key="*this">{{ item }}</view>
+          <view class="tag-item tag-item--add" bindtap="onAddTag">+</view>
+        </view>
+      </scroll-view>
+
+      <view class="dine-publish-wrap">
+        <button class="dine-publish-btn" bindtap="onDineConfirmPublish">
+          <image class="dine-publish-btn-img" src="/images/buttons/确认发布.png" mode="aspectFit" />
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 约饭编辑-添加标签弹层 -->
+  <view class="add-tag-mask" wx:if="{{ showDineAddTagModal }}" catchtap="onCloseDineAddTagModal"></view>
+  <view class="add-tag-modal" wx:if="{{ showDineAddTagModal }}">
+    <view class="add-tag-modal-inner" catchtap="">
+      <text class="add-tag-title">添加标签</text>
+      <input class="add-tag-input" placeholder="请输入标签名" value="{{ newDineTagName }}" focus="{{ showDineAddTagModal }}" bindinput="onDineNewTagInput" />
+      <view class="add-tag-actions">
+        <view class="add-tag-btn add-tag-btn--cancel" bindtap="onCloseDineAddTagModal">取消</view>
+        <view class="add-tag-btn add-tag-btn--ok" bindtap="onConfirmDineAddTag">确定</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="review-container" wx:if="{{ pageType === 'review' }}">
+
+    <!-- 星评 -->
+    <view class="star-rating">
+      <view class="stars">
+        <view class="star" wx:for="{{ [1,2,3,4,5] }}" wx:key="*this" 
+              bindtap="onSetRating" data-rating="{{ item }}"
+              style="color: {{ item <= rating ? '#FFD700' : '#ddd' }}">★</view>
+      </view>
+    </view>
+
+    <!-- 评价文本 -->
+    <view class="review-form">
+      <view class="form-group">
+        <text class="form-label">大家都在问：菜品口味如何、服务态度好吗、环境（空间、布置）怎么样</text>
+        <textarea class="form-textarea" placeholder="请输入评价内容" maxlength="500" 
+                  value="{{ reviewContent }}" bindinput="onReviewInput"></textarea>
+      </view>
+
+      <!-- 上传照片和视频 -->
+      <view class="form-group">
+        <view class="upload-options">
+          <view class="upload-btn" bindtap="onUploadImage">
+            <image src="/images/buttons/上传照片.png" class="upload-icon"></image>
+            <text>上传照片</text>
+          </view>
+          <view class="upload-btn" bindtap="onUploadVideo">
+            <image src="/images/buttons/上传视频.png" class="upload-icon"></image>
+            <text>上传视频</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 确认发布按钮 -->
+    <view class="publish-btn-container">
+      <button class="publish-btn" bindtap="onConfirmPublish">
+        <image src="/images/buttons/确认发布.png" class="publish-btn-img"></image>
+      </button>
+    </view>
+  </view>
+</view>

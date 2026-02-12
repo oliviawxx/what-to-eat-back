@@ -1,0 +1,49 @@
+<view class="tab-bar">
+  <view
+    class="tab-item {{ selected === 0 ? 'active' : '' }}"
+    bindtap="onSwitch"
+    data-index="0"
+  >
+    <image class="tab-icon" src="{{ selected === 0 ? '/images/tabbar/tab1-active.png' : '/images/tabbar/tab1.png' }}" mode="aspectFit" />
+  </view>
+  <view
+    class="tab-item {{ selected === 1 ? 'active' : '' }}"
+    bindtap="onSwitch"
+    data-index="1"
+  >
+    <image class="tab-icon" src="{{ selected === 1 ? '/images/tabbar/tab2-active.png' : '/images/tabbar/tab2.png' }}" mode="aspectFit" />
+  </view>
+  <view
+    class="tab-item center {{ selected === 2 ? 'active' : '' }}"
+    bindtap="onShowPublishModal"
+  >
+    <image class="tab-icon tab-icon-center" src="{{ selected === 2 ? '/images/tabbar/tab3-active.png' : '/images/tabbar/tab3.png' }}" mode="aspectFit" />
+  </view>
+  <view
+    class="tab-item {{ selected === 3 ? 'active' : '' }}"
+    bindtap="onSwitch"
+    data-index="3"
+  >
+    <image class="tab-icon" src="{{ selected === 3 ? '/images/tabbar/tab4-active.png' : '/images/tabbar/tab4.png' }}" mode="aspectFit" />
+  </view>
+  <view
+    class="tab-item {{ selected === 4 ? 'active' : '' }}"
+    bindtap="onSwitch"
+    data-index="4"
+  >
+    <image class="tab-icon" src="{{ selected === 4 ? '/images/tabbar/tab5-active.png' : '/images/tabbar/tab5.png' }}" mode="aspectFit" />
+  </view>
+</view>
+
+<!-- 发布选择模态框 -->
+<view class="publish-modal-mask" wx:if="{{ publishModalOpen }}" bindtap="onClosePublishModal"></view>
+<view class="publish-modal {{ publishModalOpen ? 'publish-modal--show' : '' }}">
+  <view class="publish-modal-content">
+    <button class="publish-modal-btn" bindtap="onPublishReview">
+      <image class="publish-modal-btn-img" src="/images/buttons/发布评价.png" mode="aspectFit" />
+    </button>
+    <button class="publish-modal-btn" bindtap="onPublishDine">
+      <image class="publish-modal-btn-img" src="/images/buttons/发布约饭.png" mode="aspectFit" />
+    </button>
+  </view>
+</view>

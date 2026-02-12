@@ -1,0 +1,221 @@
+<view class="page-map">
+  <!-- 同一行：模式选择（左，含地图/列表选项）+ 筛选条件（右） -->
+  <view class="header-row">
+    <view class="header-left">
+      <view class="header-title-row">
+        <view class="title-bar red"></view>
+        <text class="section-title">模式选择</text>
+      </view>
+      <view class="mode-options">
+        <view class="mode-option {{ mode === 'map' ? 'active' : '' }}" data-value="map" bindtap="onSelectMode">
+          <text>地图选择</text>
+          <view class="arrow-left" wx:if="{{ mode === 'map' }}"></view>
+        </view>
+        <view class="mode-option {{ mode === 'list' ? 'active' : '' }}" data-value="list" bindtap="onSelectMode">
+          <text>列表选择</text>
+          <view class="arrow-left" wx:if="{{ mode === 'list' }}"></view>
+        </view>
+      </view>
+    </view>
+    <view class="header-right" bindtap="onToggleFilter">
+      <view class="title-bar red"></view>
+      <text class="section-title">筛选条件</text>
+      <view class="chevron filter-chevron"></view>
+    </view>
+  </view>
+  <!-- 主内容：地图 or 列表卡片 -->
+  <view class="content">
+    <view class="map-wrap" wx:if="{{ mode === 'map' }}">
+      <map
+        id="map"
+        class="map-component"
+        longitude="{{ longitude }}"
+        latitude="{{ latitude }}"
+        scale="{{ mapScale }}"
+        show-location="{{ true }}"
+        markers="{{ mapMarkers }}"
+        bindtap="onMapTap"
+        bindmarkertap="onMarkerTap"
+      />
+    </view>
+    <view class="map-actions" wx:if="{{ mode === 'map' }}">
+      <view class="map-action-btn" bindtap="onViewRank">
+        <image class="map-action-img" src="/images/buttons/查看榜单.png" mode="aspectFit" />
+        <text class="map-action-text"></text>
+      </view>
+      <view class="map-action-btn" bindtap="onViewYuefan">
+        <image class="map-action-img" src="/images/buttons/查看约饭.png" mode="aspectFit" />
+        <text class="map-action-text"></text>
+      </view>
+    </view>
+    <scroll-view class="list-scroll" scroll-y wx:else enhanced show-scrollbar="{{ false }}">
+      <view class="list-bg"></view>
+      <view class="event-cards">
+        <view class="event-card" wx:for="{{ listItems }}" wx:key="id">
+          <view class="card-head">
+            <image class="card-avatar" src="{{ item.avatarUrl }}" mode="aspectFill"></image>
+            <text class="card-user">{{ item.userName }}</text>
+            <text class="card-count">{{ item.joined }}/{{ item.total }}</text>
+          </view>
+          <view class="card-details">
+            <text class="card-line">人数 : {{ item.people }}</text>
+            <text class="card-line">性别 : {{ item.gender }}</text>
+            <text class="card-line">约饭地点 : {{ item.place }}</text>
+            <text class="card-line">见面地点 : {{ item.meetPlace }}</text>
+            <text class="card-line">约饭日期 : {{ item.date }}</text>
+            <text class="card-line">约饭时间 : {{ item.time }}</text>
+            <text class="card-line">其他要求 : {{ item.remark }}</text>
+          </view>
+          <view class="card-actions">
+            <button class="card-btn" wx:if="{{ item.btnLeft }}" bindtap="onCardAction" data-id="{{ item.id }}" data-action="left">
+              <image class="card-btn-icon" src="{{ item.btnLeftIcon }}" mode="aspectFit"></image>
+            </button>
+            <button class="card-btn" wx:if="{{ item.btnRight }}" bindtap="onCardAction" data-id="{{ item.id }}" data-action="right">
+              <image class="card-btn-icon" src="{{ item.btnRightIcon }}" mode="aspectFit"></image>
+            </button>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 约饭详情弹窗：点击地图标记后展示 -->
+  <view class="detail-modal-mask" wx:if="{{ detailModalShow }}" catchtap="closeDetailModal"></view>
+  <view class="detail-modal {{ detailModalShow ? 'detail-modal--show' : '' }}" wx:if="{{ detailModalShow && selectedYuefan }}" catchtap="onDetailModalContentTap">
+    <view class="detail-modal-inner">
+      <view class="detail-card-head">
+        <image class="detail-card-avatar" src="{{ selectedYuefan.avatarUrl || '/images/ai/小云吞.png' }}" mode="aspectFill"></image>
+        <text class="detail-card-user">{{ selectedYuefan.userName }}</text>
+        <text class="detail-card-count">{{ selectedYuefan.joined }}/{{ selectedYuefan.total }}</text>
+      </view>
+      <view class="detail-card-body">
+        <text class="detail-line">人数: {{ selectedYuefan.people }}</text>
+        <text class="detail-line">性别: {{ selectedYuefan.gender }}</text>
+        <text class="detail-line">约饭地点: {{ selectedYuefan.place }}</text>
+        <text class="detail-line">见面地点: {{ selectedYuefan.meetPlace }}</text>
+        <text class="detail-line">约饭日期: {{ selectedYuefan.date }}</text>
+        <text class="detail-line">约饭时间: {{ selectedYuefan.time }}</text>
+        <text class="detail-line">其他要求: {{ selectedYuefan.remark }}</text>
+      </view>
+      <view class="detail-card-actions">
+        <button class="detail-btn" bindtap="onDetailTempChat">
+          <image class="detail-btn-img" src="/images/buttons/临时对话.png" mode="aspectFit"></image>
+        </button>
+        <button class="detail-btn" bindtap="onDetailJoinYuefan">
+          <image class="detail-btn-img" src="/images/buttons/加入约饭.png" mode="aspectFit"></image>
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选条件：从上方弹出的遮罩 + 面板 -->
+  <view class="filter-mask" wx:if="{{ filterOpen }}" catchtap="onCloseFilter"></view>
+  <view class="filter-panel {{ filterOpen ? 'filter-panel--show' : '' }}">
+    <view class="filter-inner">
+      <view class="filter-section">
+        <view class="filter-label-wrap">
+          <view class="label-bar"></view>
+          <text class="filter-label">人数筛选</text>
+        </view>
+        <view class="filter-chips">
+          <view
+            class="chip {{ filters.people === '1' ? 'chip--active' : '' }}"
+            data-field="people"
+            data-value="1"
+            bindtap="onFilterChip"
+          >1人</view>
+          <view
+            class="chip {{ filters.people === '2~3' ? 'chip--active' : '' }}"
+            data-field="people"
+            data-value="2~3"
+            bindtap="onFilterChip"
+          >2~3人</view>
+          <view
+            class="chip {{ filters.people === '4~5' ? 'chip--active' : '' }}"
+            data-field="people"
+            data-value="4~5"
+            bindtap="onFilterChip"
+          >4~5人</view>
+          <view
+            class="chip {{ filters.people === '6+' ? 'chip--active' : '' }}"
+            data-field="people"
+            data-value="6+"
+            bindtap="onFilterChip"
+          >6人及以上</view>
+        </view>
+      </view>
+      <view class="filter-section">
+        <view class="filter-label-wrap">
+          <view class="label-bar"></view>
+          <text class="filter-label">地点筛选</text>
+        </view>
+        <view class="filter-chips">
+          <view
+            class="chip {{ filters.location === '信息学部' ? 'chip--active' : '' }}"
+            data-field="location"
+            data-value="信息学部"
+            bindtap="onFilterChip"
+          >信息学部</view>
+          <view
+            class="chip {{ filters.location === '文理学部' ? 'chip--active' : '' }}"
+            data-field="location"
+            data-value="文理学部"
+            bindtap="onFilterChip"
+          >文理学部</view>
+          <view
+            class="chip {{ filters.location === '工学部' ? 'chip--active' : '' }}"
+            data-field="location"
+            data-value="工学部"
+            bindtap="onFilterChip"
+          >工学部</view>
+          <view
+            class="chip {{ filters.location === '医学部' ? 'chip--active' : '' }}"
+            data-field="location"
+            data-value="医学部"
+            bindtap="onFilterChip"
+          >医学部</view>
+          <view
+            class="chip {{ filters.location === '武汉市内' ? 'chip--active' : '' }}"
+            data-field="location"
+            data-value="武汉市内"
+            bindtap="onFilterChip"
+          >武汉市内</view>
+        </view>
+      </view>
+      <view class="filter-section">
+        <view class="filter-label-wrap">
+          <view class="label-bar"></view>
+          <text class="filter-label">性别筛选</text>
+        </view>
+        <view class="filter-chips">
+          <view
+            class="chip {{ filters.gender === '仅限男生' ? 'chip--active' : '' }}"
+            data-field="gender"
+            data-value="仅限男生"
+            bindtap="onFilterChip"
+          >仅限男生</view>
+          <view
+            class="chip {{ filters.gender === '仅限女生' ? 'chip--active' : '' }}"
+            data-field="gender"
+            data-value="仅限女生"
+            bindtap="onFilterChip"
+          >仅限女生</view>
+          <view
+            class="chip {{ filters.gender === '男女均可' ? 'chip--active' : '' }}"
+            data-field="gender"
+            data-value="男女均可"
+            bindtap="onFilterChip"
+          >男女均可</view>
+        </view>
+      </view>
+      <view class="filter-actions">
+        <button class="filter-btn filter-btn-reset" bindtap="onFilterReset">
+          <image class="filter-btn-img" src="/images/buttons/重置.png" mode="aspectFit" />
+        </button>
+        <button class="filter-btn filter-btn-done" bindtap="onFilterDone">
+          <image class="filter-btn-img" src="/images/buttons/完成.png" mode="aspectFit" />
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

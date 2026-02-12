@@ -1,0 +1,289 @@
+.page-chat-detail {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fffef5;
+  box-sizing: border-box;
+}
+
+/* 自定义顶栏 */
+.nav-bar {
+  background: #fdf8f0;
+  flex-shrink: 0;
+}
+
+.nav-content {
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 24rpx;
+  position: relative;
+}
+
+.nav-back {
+  width: 80rpx;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nav-back-arrow {
+  font-size: 48rpx;
+  color: #333;
+  font-weight: 300;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.nav-right {
+  min-width: 96rpx;
+}
+
+/* 聊天内容区 */
+.chat-content {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.chat-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(255,248,220,0.95) 0%, rgba(255,248,235,0.9) 100%);
+}
+
+.msg-list {
+  position: relative;
+  height: 100%;
+  padding: 24rpx 24rpx 24rpx;
+  box-sizing: border-box;
+}
+
+.msg-date {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  margin: 24rpx 0;
+}
+
+.msg-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 24rpx;
+}
+
+.msg-row--other {
+  flex-direction: row;
+}
+
+.msg-row--me {
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.msg-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.msg-row--other .msg-avatar {
+  margin-right: 16rpx;
+}
+
+.msg-row--me .msg-avatar {
+  margin-left: 16rpx;
+}
+
+.msg-body {
+  max-width: 75%;
+  min-width: 0;
+}
+
+.bubble {
+  padding: 20rpx 24rpx;
+  border-radius: 16rpx;
+  position: relative;
+}
+
+.bubble--other {
+  background: rgba(255,255,255,0.95);
+  border-left: 4rpx solid #e0e0e0;
+}
+
+.bubble--me {
+  background: #8B4513;
+  color: #fff;
+}
+
+.bubble-text {
+  display: block;
+  font-size: 28rpx;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.bubble--me .bubble-text {
+  color: #fff;
+}
+
+.bubble-label {
+  display: block;
+  font-size: 22rpx;
+  opacity: 0.9;
+  margin-bottom: 4rpx;
+}
+
+.msg-time {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.bubble--me .msg-time {
+  color: rgba(255,255,255,0.85);
+}
+
+.bubble--img .bubble-text {
+  margin-top: 8rpx;
+}
+
+.bubble-img {
+  display: block;
+  max-width: 320rpx;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.bubble--voice {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.voice-icon {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.voice-duration {
+  font-size: 26rpx;
+  color: #fff;
+}
+
+/* 底部输入栏 */
+.input-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1rpx solid #eee;
+}
+
+.input-attach {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.icon-attach {
+  font-size: 40rpx;
+  color: #666;
+  line-height: 1;
+}
+
+.input-field {
+  flex: 1;
+  height: 72rpx;
+  padding: 0 24rpx;
+  background: #f5f5f5;
+  border-radius: 36rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+/* 临时会话：发送键左侧的添加好友（人形+加号） */
+.btn-add-friend {
+  width: 72rpx;
+  height: 72rpx;
+  margin-left: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-add-friend-symbol {
+  position: relative;
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-person {
+  font-size: 40rpx;
+  line-height: 1;
+}
+
+.icon-plus {
+  position: absolute;
+  right: -4rpx;
+  bottom: -4rpx;
+  width: 24rpx;
+  height: 24rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: #8B4513;
+  background: #fff;
+  border: 2rpx solid #8B4513;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn-send {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.btn-send-img {
+  width: 100%;
+  height: 100%;
+}
+
+.icon-send {
+  font-size: 36rpx;
+  color: #fff;
+  line-height: 1;
+}

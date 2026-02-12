@@ -1,0 +1,78 @@
+<view class="page-template-edit">
+  <!-- 模板列表 -->
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">模板</text>
+    </view>
+    <view class="template-list">
+      <view class="template-row" wx:for="{{ templates }}" wx:key="id" bindtap="onSelectTemplate" data-id="{{ item.id }}">
+        <view class="template-row-left">
+          <text class="template-name">模板 {{ item.id }}</text>
+          <text class="template-desc">人数: {{ item.people }}</text>
+          <text class="template-desc">性别: {{ item.gender }}</text>
+        </view>
+        <text class="tpl-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 性别筛选 -->
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">性别筛选</text>
+    </view>
+    <picker mode="selector" range="{{ genderOptions }}" range-key="label" value="{{ genderIndex }}" bindchange="onGenderChange">
+      <view class="picker-value">{{ genderOptions[genderIndex].label }}</view>
+    </picker>
+  </view>
+
+  <!-- 人数筛选 -->
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">人数筛选</text>
+    </view>
+    <picker mode="selector" range="{{ peopleOptions }}" range-key="label" value="{{ peopleIndex }}" bindchange="onPeopleChange">
+      <view class="picker-value">{{ peopleOptions[peopleIndex].label }}</view>
+    </picker>
+  </view>
+
+  <!-- 信息补充 -->
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">信息补充</text>
+    </view>
+    <input class="input-field" placeholder="请输入约饭时间" value="{{ form.time }}" bindinput="onTimeInput" />
+    <input class="input-field" placeholder="请输入见面地点" value="{{ form.place }}" bindinput="onPlaceInput" />
+  </view>
+
+  <!-- 其他声明 -->
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">其他声明</text>
+    </view>
+    <textarea class="textarea-field" placeholder="请输入忌口及其他要求声明......" value="{{ form.remark }}" bindinput="onRemarkInput" />
+  </view>
+
+  <!-- 标签选择 -->
+  <view class="section">
+    <view class="section-head">
+      <view class="title-bar"></view>
+      <text class="section-title">标签选择</text>
+    </view>
+    <view class="tags">
+      <view class="tag" wx:for="{{ tags }}" wx:key="*this">{{ item }}</view>
+      <view class="tag tag-add">+</view>
+    </view>
+  </view>
+
+  <view class="btn-wrap">
+    <button class="btn-save" bindtap="onSaveTemplate">
+      <image class="btn-save-img" src="/images/buttons/保存模板.png" mode="aspectFit" />
+    </button>
+  </view>
+</view>

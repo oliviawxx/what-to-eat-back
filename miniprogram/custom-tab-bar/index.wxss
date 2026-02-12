@@ -1,0 +1,104 @@
+/* 整体 tab 栏加高，留足空间给图标 */
+.tab-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 180rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 9999;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 16rpx 0;
+  box-sizing: border-box;
+}
+
+.tab-item.center {
+  flex: 1.2;
+}
+
+/* 图标容器调大，避免图案边缘被裁切；用 aspectFit 完整显示 */
+.tab-icon {
+  width: 96rpx;
+  height: 96rpx;
+  display: block;
+}
+
+.tab-icon-center {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.tab-item.active .tab-icon {
+  opacity: 1;
+}
+
+.tab-item:not(.active) .tab-icon {
+  opacity: 0.85;
+}
+
+/* 发布选择模态框 */
+.publish-modal-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+}
+
+.publish-modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: transparent;
+  z-index: 10001;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.publish-modal--show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.publish-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+  align-items: center;
+}
+
+.publish-modal-btn {
+  width: 300rpx;
+  height: 120rpx;
+  padding: 0;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.publish-modal-btn::after {
+  border: none;
+}
+
+.publish-modal-btn-img {
+  width: 100%;
+  height: 100%;
+}

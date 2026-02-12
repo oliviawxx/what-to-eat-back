@@ -1,0 +1,60 @@
+<view class="page-todo-list">
+  <view class="nav-bar" style="padding-top: {{ statusBarHeight }}px;">
+    <view class="nav-content">
+      <view class="nav-back" bindtap="onBack">
+        <text class="nav-back-arrow">‹</text>
+      </view>
+      <text class="nav-title">待办消息</text>
+      <view class="nav-right"></view>
+    </view>
+  </view>
+
+  <scroll-view class="todo-body" scroll-y enhanced>
+    <!-- 约饭正在进行中 -->
+    <view class="block">
+      <view class="block-head">
+        <view class="block-head-bar"></view>
+        <text class="block-title">约饭正在进行中</text>
+      </view>
+      <view class="todo-card" wx:for="{{ inProgress }}" wx:key="id" bindtap="onTapInProgress" data-id="{{ item.id }}">
+        <view class="progress-wrap">
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{ item.progress }}%"></view>
+          </view>
+          <image class="progress-dot" src="/images/buttons/约饭进度点.png" mode="aspectFit" style="left: {{ item.progress }}%" />
+        </view>
+        <text class="todo-card-label">约饭 {{ item.id }}</text>
+        <text class="todo-card-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 待前往约饭 -->
+    <view class="block">
+      <view class="block-head">
+        <view class="block-head-bar"></view>
+        <text class="block-title">待前往约饭</text>
+      </view>
+      <view class="todo-card todo-card--row" wx:for="{{ toAttend }}" wx:key="id" bindtap="onTapToAttend" data-id="{{ item.id }}">
+        <view class="todo-card-main">
+          <text class="todo-card-line">距约饭开始倒计时: {{ item.countdown }}</text>
+          <text class="todo-card-line todo-card-line--sub">见面地点: {{ item.place }}</text>
+        </view>
+        <text class="todo-card-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 历史约饭 -->
+    <view class="block">
+      <view class="block-head">
+        <view class="block-head-bar"></view>
+        <text class="block-title">历史约饭</text>
+      </view>
+      <view class="todo-card todo-card--row" wx:for="{{ history }}" wx:key="id" bindtap="onTapHistory" data-id="{{ item.id }}">
+        <view class="todo-card-main">
+          <text class="todo-card-line">约饭地点: {{ item.place }}</text>
+        </view>
+        <text class="todo-card-arrow">›</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
